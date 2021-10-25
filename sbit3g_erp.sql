@@ -120,6 +120,7 @@ CREATE TABLE `employee` (
   `Suffix` varchar(10) NOT NULL,
   `Birthdate` date NOT NULL,
   `HomeAddress` varchar(255) NOT NULL,
+  `AttendancePIN` varchar(20) NULL,
   `DepartmentID` int(11) DEFAULT NULL,
   `TeamID` int(11) DEFAULT NULL,
   `SalaryGrade` int(11) DEFAULT NULL,
