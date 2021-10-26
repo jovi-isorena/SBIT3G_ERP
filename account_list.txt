@@ -1,0 +1,32 @@
+Accounts List
+!!Reminder: 
+    Passwords are encrypted. PHP users can use password_verify() method to compare the input and hashed passwords
+Group 1 
+Username        Password        Position/Role
+vitor1          password        admin
+cajuguiran1     password        admin
+galiza1         password        admin
+
+Group 2
+Username        Password        Position/Role
+tamidles1       password        admin
+bayan1          password        store manager
+librada1        password        delivery manager
+alivio1         password        stockman
+
+Group 3 
+Username        Password        Position/Role
+abaya1          password        admin
+flores1         password        account manager
+sy1             password        order manager
+
+Group 4 
+Username        Password        Position/Role
+isorena1        password        admin
+parreno1        password        representative(sales)
+suyom1          password        representative(tech)
+marcelino1      password        lead(sales)
+bulingit1       password        lead(tech)
+esteves1        password        operations manager
+
+

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 16, 2021 at 08:50 AM
+-- Generation Time: Oct 26, 2021 at 02:56 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -106,6 +106,16 @@ CREATE TABLE `department` (
   `isActive` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `department`
+--
+
+INSERT INTO `department` (`DepartmentID`, `DepartmentName`, `DepartmentHeadName`, `isActive`) VALUES
+(1, 'Human Resource', 'Joshua Dungo', 1),
+(2, 'Purchasing', 'Christina Josol', 1),
+(3, 'Order Processing', 'Julianne Samantha Echin', 1),
+(4, 'Customer Relationship', 'Waren De Guzman', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -115,18 +125,40 @@ CREATE TABLE `department` (
 CREATE TABLE `employee` (
   `EmployeeID` varchar(10) NOT NULL,
   `FirstName` varchar(255) NOT NULL,
-  `MiddleName` varchar(255) NOT NULL,
+  `MiddleName` varchar(255) DEFAULT NULL,
   `LastName` varchar(255) NOT NULL,
-  `Suffix` varchar(10) NOT NULL,
+  `Suffix` varchar(10) DEFAULT NULL,
   `Birthdate` date NOT NULL,
   `HomeAddress` varchar(255) NOT NULL,
-  `AttendancePIN` varchar(20) NULL,
+  `AttendancePIN` varchar(20) DEFAULT NULL,
   `DepartmentID` int(11) DEFAULT NULL,
   `TeamID` int(11) DEFAULT NULL,
   `SalaryGrade` int(11) DEFAULT NULL,
   `Position` int(11) DEFAULT NULL,
   `isActive` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `employee`
+--
+
+INSERT INTO `employee` (`EmployeeID`, `FirstName`, `MiddleName`, `LastName`, `Suffix`, `Birthdate`, `HomeAddress`, `AttendancePIN`, `DepartmentID`, `TeamID`, `SalaryGrade`, `Position`, `isActive`) VALUES
+('0001', 'Melquezidek', 'Suazo', 'Vitor', '', '2000-01-01', 'Quezon City', '1111', 1, NULL, 1, 1, 1),
+('0002', 'Eugene', 'Laganzo', 'Tamidles', '', '2000-01-01', 'Quezon City', '1111', 2, NULL, 1, 1, 1),
+('0003', 'Alexander', 'Oh', 'Abaya', '', '2000-01-01', 'Quezon City', '1111', 3, NULL, 1, 1, 1),
+('0004', 'Jovito', 'Briones', 'Isorena', 'Jr', '2000-01-01', 'Quezon City', '1111', 4, NULL, 1, 1, 1),
+('0005', 'Nikko', 'Ocampo', 'Bayan', NULL, '2000-01-01', 'Quezon City', '1111', 2, NULL, 1, 2, 1),
+('0006', 'Jericko', 'Jamora', 'Librada', NULL, '2000-01-01', 'Quezon City', '1111', 2, NULL, 1, 3, 1),
+('0007', 'Andrea', 'Llamador', 'Alivio', NULL, '2000-01-01', 'Quezon City', '1111', 3, NULL, 1, 4, 1),
+('0008', 'Jeanne', 'Laquio', 'Flores', NULL, '2000-01-01', 'Quezon City', '1111', 3, NULL, 1, 5, 1),
+('0009', 'Joselito', 'Sancha', 'Sy', 'Jr', '2000-01-01', 'Quezon City', '1111', 3, NULL, 1, 6, 1),
+('0010', 'Arianne Ruth', 'Rodil', 'Parreño', NULL, '2000-01-01', 'Quezon City', '1111', 4, 1, 1, 7, 1),
+('0011', 'Arvin', 'Samson', 'Suyom', NULL, '2000-01-01', 'Quezon City', '1111', 4, 2, 1, 7, 1),
+('0012', 'Keila', 'Roson', 'Marcelino', NULL, '2000-01-01', 'Quezon City', '1111', 4, 1, 1, 8, 1),
+('0013', 'Harvey', NULL, 'Bulingit', NULL, '2000-01-01', 'Quezon City', '1111', 4, 2, 1, 8, 1),
+('0014', 'Marylle Clarice', 'De Jesus', 'Esteves', NULL, '2000-01-01', 'Quezon City', '1111', 4, NULL, 1, 9, 1),
+('0015', 'John Victor', 'Julian', 'Cajuguiran', NULL, '2000-01-01', 'Quezon City', '1111', 1, NULL, 1, 1, 1),
+('0016', 'Dominic Joaquin', 'Dasmariñas', 'Galiza', NULL, '2000-01-01', 'Quezon City', '1111', 1, NULL, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -217,6 +249,21 @@ CREATE TABLE `position` (
   `InitialSalary` int(11) NOT NULL,
   `isActive` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `position`
+--
+
+INSERT INTO `position` (`PositionID`, `PositionName`, `InitialSalary`, `isActive`) VALUES
+(1, 'Admin', 1, 1),
+(2, 'Store Manager', 1, 1),
+(3, 'Delivery Manager', 1, 1),
+(4, 'Stockman', 1, 1),
+(5, 'Account Manager', 1, 1),
+(6, 'Order Manager', 1, 1),
+(7, 'Customer Relationship Representative', 1, 1),
+(8, 'Customer Relationship Lead', 1, 1),
+(9, 'Operations Manager', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -342,6 +389,13 @@ CREATE TABLE `salarygrade` (
   `isActive` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `salarygrade`
+--
+
+INSERT INTO `salarygrade` (`SalaryGradeID`, `Grade`, `Step`, `Rate`, `isActive`) VALUES
+(1, '1', '1', '30000.00', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -355,6 +409,16 @@ CREATE TABLE `socialsecuritynumber` (
   `TIN` varchar(255) DEFAULT NULL,
   `PagibigNumber` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `socialsecuritynumber`
+--
+
+INSERT INTO `socialsecuritynumber` (`EmployeeID`, `Philhealth`, `SSSNumber`, `TIN`, `PagibigNumber`) VALUES
+('0001', '12345678', '02-3232332', '321-327-544', '1239832'),
+('0002', '23456789', '02-3237643', '567-344-543', '1434332'),
+('0003', '34567891', '02-3239642', '112-268-322', '1239764'),
+('0004', '45678912', '02-9371931', '940-443-003', '3312832');
 
 -- --------------------------------------------------------
 
@@ -398,6 +462,28 @@ CREATE TABLE `systemaccount` (
   `isActive` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `systemaccount`
+--
+
+INSERT INTO `systemaccount` (`EmployeeID`, `Username`, `Password`, `LastLoginAttempt`, `LoginAttemptCount`, `LockedUntil`, `isActive`) VALUES
+('0001', 'vitor1', '$2y$10$LVllbI3qmI5hb54f6qYNNeTSlKevPlbPZ8LWJ3TX2K/6ViQ3ROCYm', NULL, NULL, NULL, 1),
+('0002', 'tamidles1', '$2y$10$4M6cMHuLCu0Uagn6HQnlieteDw44RuzvKANpYseacssbKy8jBaoQO', NULL, NULL, NULL, 1),
+('0003', 'abaya1', '$2y$10$5LxbYLv8hq93KIr3svybLOdvSKF1jBfYSAbfGxrRiivICXcf8ZI2y', NULL, NULL, NULL, 1),
+('0004', 'isorena1', '$2y$10$Gn2U3BrCVH82fpCphqzZeu.YjxELiACm10kS1fWD2xxipLGvuud0G', NULL, NULL, NULL, 1),
+('0005', 'bayan1', '$2y$10$DbLfvgJFBGEzO1Mzvt/z7.7ELBnTcxPBNGqc0TBHOSPRqXKgp5pAK', NULL, NULL, NULL, 1),
+('0006', 'librada1', '$2y$10$iA2Iph3oE3D1UXU.tYzRcuVTEHmC1SqXRKn9cjTa1wIhpDzPHks8W', NULL, NULL, NULL, 1),
+('0007', 'alivio1', '$2y$10$tOOPZeRBEiOKZ45vt38EL.yKHHwEdfQmdLcLLm4.sBclQF2rq3I/K', NULL, NULL, NULL, 1),
+('0008', 'flores1', '$2y$10$xdzk585yw5jv3t27u0.IUuz06DWFpv1uFPrAcW9vtflWTg1DMpzi.', NULL, NULL, NULL, 1),
+('0009', 'sy1', '$2y$10$mVwUXZ8EUJdftZruhxxM5u.TWipoG8bOrCXTbBWStJZo7Y2PCKPO.', NULL, NULL, NULL, 1),
+('0010', 'parreno1', '$2y$10$au4rX6Pjn15C.oTt/kHRiucwofqhpMi/d.oWMFYShhtshOGOjxE1S', NULL, NULL, NULL, 1),
+('0011', 'suyom1', '$2y$10$VwXAozs6/M0PgLAnOKOZO.dCgLIkQq/fO77Gwma0vZmIccSLoLKbG', NULL, NULL, NULL, 1),
+('0012', 'marcelino1', '$2y$10$Zy7bqefElhn6mWjNyi32bedyLG8jbEv1BONT03CGGUmm.vqy1f.F.', NULL, NULL, NULL, 1),
+('0013', 'bulingit1', '$2y$10$JCsThCrajRtoHCHDg90heevjLoYqu15tVHGJHnWSenvsc2mVXMkSe', NULL, NULL, NULL, 1),
+('0014', 'esteves1', '$2y$10$64bGI7PfQQK5BylF9j0r6.RAdNjf7/TKg/uGGwUlhWW1b.kwbSc26', NULL, NULL, NULL, 1),
+('0015', 'cajuguiran1', '$2y$10$7QAGhER28UUA9XDSBebf8ernCx0Q3igU4uqQmkC789gdZvwaZDLqC', NULL, NULL, NULL, 1),
+('0016', 'galiza1', '$2y$10$lFKzHRZihnj0ZMMeLrQ4DOamseZDHiWR/7pfIvP2EgtyJVgWFHxjS', NULL, NULL, NULL, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -411,6 +497,14 @@ CREATE TABLE `team` (
   `TeamName` varchar(255) NOT NULL,
   `isActive` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `team`
+--
+
+INSERT INTO `team` (`TeamID`, `DepartmentID`, `TeamLeader`, `TeamName`, `isActive`) VALUES
+(1, 4, NULL, 'Sales Support', 1),
+(2, 4, NULL, 'Tech Support', 1);
 
 -- --------------------------------------------------------
 
@@ -718,7 +812,7 @@ ALTER TABLE `delivery`
 -- AUTO_INCREMENT for table `department`
 --
 ALTER TABLE `department`
-  MODIFY `DepartmentID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `DepartmentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `employeeattendance`
@@ -748,7 +842,7 @@ ALTER TABLE `payroll`
 -- AUTO_INCREMENT for table `position`
 --
 ALTER TABLE `position`
-  MODIFY `PositionID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `PositionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `purchaseorder`
@@ -790,7 +884,7 @@ ALTER TABLE `returneditem`
 -- AUTO_INCREMENT for table `salarygrade`
 --
 ALTER TABLE `salarygrade`
-  MODIFY `SalaryGradeID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `SalaryGradeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `supplier`
@@ -802,7 +896,7 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT for table `team`
 --
 ALTER TABLE `team`
-  MODIFY `TeamID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `TeamID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `ticketcategory`
