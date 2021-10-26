@@ -29,4 +29,13 @@ marcelino1      password        lead(sales)
 bulingit1       password        lead(tech)
 esteves1        password        operations manager
 
-
+Role Ids 
+1 - admin
+2 - store manager
+3 - delivery manager
+4 - stockman
+5 - account manager
+6 - order manager
+7 - representative
+8 - lead
+9 - operations manager
