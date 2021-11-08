@@ -3,14 +3,14 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 26, 2021 at 02:56 AM
+-- Generation Time: Nov 08, 2021 at 07:51 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
-SET time_zone = "+00:00";
+SET time_zone = "+08:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -61,15 +61,11 @@ CREATE TABLE `comment` (
 
 CREATE TABLE `customer` (
   `CustomerID` varchar(10) NOT NULL,
+  `ID` int(11) NOT NULL,
   `FirstName` varchar(255) NOT NULL,
   `MiddleName` varchar(255) DEFAULT NULL,
   `LastName` varchar(255) NOT NULL,
-  `Suffix` varchar(10) DEFAULT NULL,
   `Birthdate` date NOT NULL,
-  `Address` varchar(255) NOT NULL,
-  `Barangay` varchar(255) NOT NULL,
-  `City` varchar(255) NOT NULL,
-  `Zip` varchar(10) DEFAULT NULL,
   `Mobile` varchar(20) DEFAULT NULL,
   `Email` varchar(255) NOT NULL,
   `Password` varchar(255) NOT NULL,
@@ -79,6 +75,35 @@ CREATE TABLE `customer` (
   `Image` longblob DEFAULT NULL,
   `CustomerStatus` varchar(255) DEFAULT NULL,
   `JoinDate` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customeraddress`
+--
+
+CREATE TABLE `customeraddress` (
+  `ID` int(11) NOT NULL,
+  `CustomerID` varchar(10) DEFAULT NULL,
+  `Address` varchar(255) DEFAULT NULL,
+  `Barangay` varchar(255) DEFAULT NULL,
+  `City` varchar(255) DEFAULT NULL,
+  `Zip` varchar(255) DEFAULT NULL,
+  `Type` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `deduction`
+--
+
+CREATE TABLE `deduction` (
+  `id` int(11) NOT NULL,
+  `deductionName` varchar(50) NOT NULL,
+  `deductionCost` double(11,2) NOT NULL,
+  `isActive` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -130,11 +155,13 @@ CREATE TABLE `employee` (
   `Suffix` varchar(10) DEFAULT NULL,
   `Birthdate` date NOT NULL,
   `HomeAddress` varchar(255) NOT NULL,
+  `ContactNo` varchar(20) DEFAULT NULL,
   `AttendancePIN` varchar(20) DEFAULT NULL,
   `DepartmentID` int(11) DEFAULT NULL,
   `TeamID` int(11) DEFAULT NULL,
   `SalaryGrade` int(11) DEFAULT NULL,
   `Position` int(11) DEFAULT NULL,
+  `ScheduleID` int(11) DEFAULT NULL,
   `isActive` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -142,23 +169,27 @@ CREATE TABLE `employee` (
 -- Dumping data for table `employee`
 --
 
-INSERT INTO `employee` (`EmployeeID`, `FirstName`, `MiddleName`, `LastName`, `Suffix`, `Birthdate`, `HomeAddress`, `AttendancePIN`, `DepartmentID`, `TeamID`, `SalaryGrade`, `Position`, `isActive`) VALUES
-('0001', 'Melquezidek', 'Suazo', 'Vitor', '', '2000-01-01', 'Quezon City', '1111', 1, NULL, 1, 1, 1),
-('0002', 'Eugene', 'Laganzo', 'Tamidles', '', '2000-01-01', 'Quezon City', '1111', 2, NULL, 1, 1, 1),
-('0003', 'Alexander', 'Oh', 'Abaya', '', '2000-01-01', 'Quezon City', '1111', 3, NULL, 1, 1, 1),
-('0004', 'Jovito', 'Briones', 'Isorena', 'Jr', '2000-01-01', 'Quezon City', '1111', 4, NULL, 1, 1, 1),
-('0005', 'Nikko', 'Ocampo', 'Bayan', NULL, '2000-01-01', 'Quezon City', '1111', 2, NULL, 1, 2, 1),
-('0006', 'Jericko', 'Jamora', 'Librada', NULL, '2000-01-01', 'Quezon City', '1111', 2, NULL, 1, 3, 1),
-('0007', 'Andrea', 'Llamador', 'Alivio', NULL, '2000-01-01', 'Quezon City', '1111', 3, NULL, 1, 4, 1),
-('0008', 'Jeanne', 'Laquio', 'Flores', NULL, '2000-01-01', 'Quezon City', '1111', 3, NULL, 1, 5, 1),
-('0009', 'Joselito', 'Sancha', 'Sy', 'Jr', '2000-01-01', 'Quezon City', '1111', 3, NULL, 1, 6, 1),
-('0010', 'Arianne Ruth', 'Rodil', 'Parreño', NULL, '2000-01-01', 'Quezon City', '1111', 4, 1, 1, 7, 1),
-('0011', 'Arvin', 'Samson', 'Suyom', NULL, '2000-01-01', 'Quezon City', '1111', 4, 2, 1, 7, 1),
-('0012', 'Keila', 'Roson', 'Marcelino', NULL, '2000-01-01', 'Quezon City', '1111', 4, 1, 1, 8, 1),
-('0013', 'Harvey', NULL, 'Bulingit', NULL, '2000-01-01', 'Quezon City', '1111', 4, 2, 1, 8, 1),
-('0014', 'Marylle Clarice', 'De Jesus', 'Esteves', NULL, '2000-01-01', 'Quezon City', '1111', 4, NULL, 1, 9, 1),
-('0015', 'John Victor', 'Julian', 'Cajuguiran', NULL, '2000-01-01', 'Quezon City', '1111', 1, NULL, 1, 1, 1),
-('0016', 'Dominic Joaquin', 'Dasmariñas', 'Galiza', NULL, '2000-01-01', 'Quezon City', '1111', 1, NULL, 1, 1, 1);
+INSERT INTO `employee` (`EmployeeID`, `FirstName`, `MiddleName`, `LastName`, `Suffix`, `Birthdate`, `HomeAddress`, `ContactNo`, `AttendancePIN`, `DepartmentID`, `TeamID`, `SalaryGrade`, `Position`, `ScheduleID`, `isActive`) VALUES
+('0001', 'Melquezidek', 'Suazo', 'Vitor', '', '2000-01-01', 'Quezon City', NULL, '1111', 1, NULL, 1, 1, NULL, 1),
+('0002', 'Eugene', 'Laganzo', 'Tamidles', '', '2000-01-01', 'Quezon City', NULL, '1111', 2, NULL, 1, 1, NULL, 1),
+('0003', 'Alexander', 'Oh', 'Abaya', '', '2000-01-01', 'Quezon City', NULL, '1111', 3, NULL, 1, 1, NULL, 1),
+('0004', 'Jovito', 'Briones', 'Isorena', 'Jr', '2000-01-01', 'Quezon City', NULL, '1111', 4, NULL, 1, 1, NULL, 1),
+('0005', 'Nikko', 'Ocampo', 'Bayan', NULL, '2000-01-01', 'Quezon City', NULL, '1111', 2, NULL, 1, 2, NULL, 1),
+('0006', 'Jericko', 'Jamora', 'Librada', NULL, '2000-01-01', 'Quezon City', NULL, '1111', 2, NULL, 1, 3, NULL, 1),
+('0007', 'Andrea', 'Llamador', 'Alivio', NULL, '2000-01-01', 'Quezon City', NULL, '1111', 3, NULL, 1, 4, NULL, 1),
+('0008', 'Jeanne', 'Laquio', 'Flores', NULL, '2000-01-01', 'Quezon City', NULL, '1111', 3, NULL, 1, 5, NULL, 1),
+('0009', 'Joselito', 'Sancha', 'Sy', 'Jr', '2000-01-01', 'Quezon City', NULL, '1111', 3, NULL, 1, 6, NULL, 1),
+('0010', 'Arianne Ruth', 'Rodil', 'Parreño', NULL, '2000-01-01', 'Quezon City', NULL, '1111', 4, 1, 1, 7, NULL, 1),
+('0011', 'Arvin', 'Samson', 'Suyom', NULL, '2000-01-01', 'Quezon City', NULL, '1111', 4, 2, 1, 7, NULL, 1),
+('0012', 'Keila', 'Roson', 'Marcelino', NULL, '2000-01-01', 'Quezon City', NULL, '1111', 4, 1, 1, 8, NULL, 1),
+('0013', 'Harvey', NULL, 'Bulingit', NULL, '2000-01-01', 'Quezon City', NULL, '1111', 4, 2, 1, 8, NULL, 1),
+('0014', 'Marylle Clarice', 'De Jesus', 'Esteves', NULL, '2000-01-01', 'Quezon City', NULL, '1111', 4, NULL, 1, 9, NULL, 1),
+('0015', 'John Victor', 'Julian', 'Cajuguiran', NULL, '2000-01-01', 'Quezon City', NULL, '1111', 1, NULL, 1, 1, NULL, 1),
+('0016', 'Dominic Joaquin', 'Dasmariñas', 'Galiza', NULL, '2000-01-01', 'Quezon City', NULL, '1111', 1, NULL, 1, 1, NULL, 1),
+('0017', 'Cai', NULL, 'Gigante', NULL, '2000-01-01', 'Quezon City', NULL, '1111', 4, 1, 1, 7, NULL, 1),
+('0018', 'Jerico', NULL, 'Angala', NULL, '2000-01-01', 'Quezon City', NULL, '1111', 4, 1, 1, 7, NULL, 1),
+('0019', 'Kerstein May', NULL, 'Paano', NULL, '2000-01-01', 'Quezon City', NULL, '1111', 4, 2, 1, 7, NULL, 1),
+('0020', 'Rhol', NULL, 'Lamberte', NULL, '2000-01-01', 'Quezon City', NULL, '1111', 4, 2, 1, 7, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -168,11 +199,14 @@ INSERT INTO `employee` (`EmployeeID`, `FirstName`, `MiddleName`, `LastName`, `Su
 
 CREATE TABLE `employeeattendance` (
   `AttendanceID` int(11) NOT NULL,
+  `Date` date NOT NULL,
+  `TimeIn` time NOT NULL,
+  `TimeOut` time NOT NULL,
+  `Num_hrs` decimal(10,2) DEFAULT NULL,
   `EmployeeID` varchar(10) NOT NULL,
-  `DateTimeIn` datetime DEFAULT NULL,
-  `DateTimeOut` datetime DEFAULT NULL,
   `Undertime` int(11) DEFAULT NULL,
-  `Overtime` int(11) DEFAULT NULL
+  `Overtime` int(11) DEFAULT NULL,
+  `Status` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -315,6 +349,21 @@ CREATE TABLE `purchaseorderitem` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `queue`
+--
+
+CREATE TABLE `queue` (
+  `ID` int(11) NOT NULL,
+  `EmployeeID` varchar(10) NOT NULL,
+  `TeamID` int(11) NOT NULL,
+  `EnqueueTime` datetime NOT NULL DEFAULT current_timestamp(),
+  `ActiveTickets` int(11) NOT NULL,
+  `OnlineStatus` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `rating`
 --
 
@@ -399,6 +448,19 @@ INSERT INTO `salarygrade` (`SalaryGradeID`, `Grade`, `Step`, `Rate`, `isActive`)
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `schedule`
+--
+
+CREATE TABLE `schedule` (
+  `id` int(11) NOT NULL,
+  `TimeIn` time DEFAULT NULL,
+  `TimeOut` time DEFAULT NULL,
+  `isActive` tinyint(1) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `socialsecuritynumber`
 --
 
@@ -409,16 +471,6 @@ CREATE TABLE `socialsecuritynumber` (
   `TIN` varchar(255) DEFAULT NULL,
   `PagibigNumber` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `socialsecuritynumber`
---
-
-INSERT INTO `socialsecuritynumber` (`EmployeeID`, `Philhealth`, `SSSNumber`, `TIN`, `PagibigNumber`) VALUES
-('0001', '12345678', '02-3232332', '321-327-544', '1239832'),
-('0002', '23456789', '02-3237643', '567-344-543', '1434332'),
-('0003', '34567891', '02-3239642', '112-268-322', '1239764'),
-('0004', '45678912', '02-9371931', '940-443-003', '3312832');
 
 -- --------------------------------------------------------
 
@@ -482,7 +534,11 @@ INSERT INTO `systemaccount` (`EmployeeID`, `Username`, `Password`, `LastLoginAtt
 ('0013', 'bulingit1', '$2y$10$JCsThCrajRtoHCHDg90heevjLoYqu15tVHGJHnWSenvsc2mVXMkSe', NULL, NULL, NULL, 1),
 ('0014', 'esteves1', '$2y$10$64bGI7PfQQK5BylF9j0r6.RAdNjf7/TKg/uGGwUlhWW1b.kwbSc26', NULL, NULL, NULL, 1),
 ('0015', 'cajuguiran1', '$2y$10$7QAGhER28UUA9XDSBebf8ernCx0Q3igU4uqQmkC789gdZvwaZDLqC', NULL, NULL, NULL, 1),
-('0016', 'galiza1', '$2y$10$lFKzHRZihnj0ZMMeLrQ4DOamseZDHiWR/7pfIvP2EgtyJVgWFHxjS', NULL, NULL, NULL, 1);
+('0016', 'galiza1', '$2y$10$lFKzHRZihnj0ZMMeLrQ4DOamseZDHiWR/7pfIvP2EgtyJVgWFHxjS', NULL, NULL, NULL, 1),
+('0017', 'gigante1', '$2y$10$gFElh3V0m8ntwBddIUsQl.UzGQow1hS49K5TqyHKcgRrcEau1.3C.', NULL, NULL, NULL, 1),
+('0018', 'angala1', '$2y$10$WTr2MlWDQqwIAUwZLdXFPecd1Krtd0JB76EYymtJhxbnU295CWsOy', NULL, NULL, NULL, 1),
+('0019', 'paano1', '$2y$10$zcoRsPBdTNMdKeegpYdIYOppRtoZeRtvdoTSAtz96rkV1SndQsmX.', NULL, NULL, NULL, 1),
+('0020', 'lamberte1', '$2y$10$RLN402DtGVTSEa/hbweHM.O/kL92Op2rWwzRA2tEsHe8BMp.ejGjy', NULL, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -515,14 +571,15 @@ INSERT INTO `team` (`TeamID`, `DepartmentID`, `TeamLeader`, `TeamName`, `isActiv
 CREATE TABLE `ticket` (
   `TicketNo` varchar(10) NOT NULL,
   `CreatedDatetime` datetime NOT NULL DEFAULT current_timestamp(),
-  `EnqueuedDatetime` datetime DEFAULT NULL,
+  `EnqueuedDatetime` datetime DEFAULT current_timestamp(),
   `AssignedDatetime` datetime DEFAULT NULL,
   `ClosedDatetime` datetime DEFAULT NULL,
   `PriorityLevel` int(11) NOT NULL,
   `TransferringTeam` varchar(255) DEFAULT NULL,
-  `AssignedEmployee` varchar(10) NOT NULL,
+  `AssignedEmployee` varchar(10) DEFAULT NULL,
   `CategoryID` int(11) NOT NULL,
-  `Content` varchar(255) NOT NULL,
+  `AssignedTeam` int(11) NOT NULL,
+  `Content` varchar(1000) NOT NULL,
   `CreatedBy` varchar(10) NOT NULL,
   `TicketStatus` varchar(10) NOT NULL DEFAULT 'open',
   `CSAT1` int(11) DEFAULT NULL,
@@ -552,6 +609,7 @@ CREATE TABLE `ticketcategory` (
 --
 
 CREATE TABLE `ticketingsla` (
+  `SlaId` int(11) NOT NULL,
   `TicketConcurrency` int(11) DEFAULT NULL,
   `L1MaxWaitingTime` int(11) DEFAULT NULL,
   `L2MaxWaitingTime` int(11) DEFAULT NULL,
@@ -565,6 +623,13 @@ CREATE TABLE `ticketingsla` (
   `MaxRepLunchTime` int(11) DEFAULT NULL,
   `MaxTicketIdleTime` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ticketingsla`
+--
+
+INSERT INTO `ticketingsla` (`SlaId`, `TicketConcurrency`, `L1MaxWaitingTime`, `L2MaxWaitingTime`, `L3MaxWaitingTime`, `L1MaxHandlingTime`, `L2MaxHandlingTime`, `L3MaxHandlingTime`, `MaxRepAwayTime`, `MaxTotalRepAwayTime`, `MaxRepBreakTime`, `MaxRepLunchTime`, `MaxTicketIdleTime`) VALUES
+(1, 2, 31, 21, 11, 21, 16, 11, 11, 21, 17, 61, 16);
 
 -- --------------------------------------------------------
 
@@ -605,6 +670,19 @@ ALTER TABLE `customer`
   ADD PRIMARY KEY (`CustomerID`);
 
 --
+-- Indexes for table `customeraddress`
+--
+ALTER TABLE `customeraddress`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `CustomerID` (`CustomerID`);
+
+--
+-- Indexes for table `deduction`
+--
+ALTER TABLE `deduction`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `delivery`
 --
 ALTER TABLE `delivery`
@@ -625,7 +703,8 @@ ALTER TABLE `employee`
   ADD KEY `DepartmentID` (`DepartmentID`),
   ADD KEY `TeamID` (`TeamID`),
   ADD KEY `SalaryGrade` (`SalaryGrade`),
-  ADD KEY `Position` (`Position`);
+  ADD KEY `Position` (`Position`),
+  ADD KEY `ScheduleID` (`ScheduleID`);
 
 --
 -- Indexes for table `employeeattendance`
@@ -694,6 +773,14 @@ ALTER TABLE `purchaseorderitem`
   ADD KEY `ProductID` (`ProductID`);
 
 --
+-- Indexes for table `queue`
+--
+ALTER TABLE `queue`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `EmployeeID` (`EmployeeID`),
+  ADD KEY `fk_team_id` (`TeamID`);
+
+--
 -- Indexes for table `rating`
 --
 ALTER TABLE `rating`
@@ -731,6 +818,12 @@ ALTER TABLE `returneditem`
 --
 ALTER TABLE `salarygrade`
   ADD PRIMARY KEY (`SalaryGradeID`);
+
+--
+-- Indexes for table `schedule`
+--
+ALTER TABLE `schedule`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `socialsecuritynumber`
@@ -771,7 +864,8 @@ ALTER TABLE `ticket`
   ADD PRIMARY KEY (`TicketNo`),
   ADD KEY `AssignedEmployee` (`AssignedEmployee`),
   ADD KEY `CategoryID` (`CategoryID`),
-  ADD KEY `CreatedBy` (`CreatedBy`);
+  ADD KEY `CreatedBy` (`CreatedBy`),
+  ADD KEY `fk_assigned_team_id` (`AssignedTeam`);
 
 --
 -- Indexes for table `ticketcategory`
@@ -779,6 +873,12 @@ ALTER TABLE `ticket`
 ALTER TABLE `ticketcategory`
   ADD PRIMARY KEY (`CategoryID`),
   ADD KEY `AssignedTeam` (`AssignedTeam`);
+
+--
+-- Indexes for table `ticketingsla`
+--
+ALTER TABLE `ticketingsla`
+  ADD PRIMARY KEY (`SlaId`);
 
 --
 -- Indexes for table `warehousestock`
@@ -801,6 +901,18 @@ ALTER TABLE `cartitem`
 --
 ALTER TABLE `comment`
   MODIFY `CommentID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `customeraddress`
+--
+ALTER TABLE `customeraddress`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `deduction`
+--
+ALTER TABLE `deduction`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `delivery`
@@ -857,6 +969,12 @@ ALTER TABLE `purchaseorderitem`
   MODIFY `PurchaseItemID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `queue`
+--
+ALTER TABLE `queue`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `rating`
 --
 ALTER TABLE `rating`
@@ -887,6 +1005,12 @@ ALTER TABLE `salarygrade`
   MODIFY `SalaryGradeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `schedule`
+--
+ALTER TABLE `schedule`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `supplier`
 --
 ALTER TABLE `supplier`
@@ -903,6 +1027,12 @@ ALTER TABLE `team`
 --
 ALTER TABLE `ticketcategory`
   MODIFY `CategoryID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ticketingsla`
+--
+ALTER TABLE `ticketingsla`
+  MODIFY `SlaId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
@@ -923,6 +1053,12 @@ ALTER TABLE `comment`
   ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`ReplyingRepId`) REFERENCES `employee` (`EmployeeID`);
 
 --
+-- Constraints for table `customeraddress`
+--
+ALTER TABLE `customeraddress`
+  ADD CONSTRAINT `customeraddress_ibfk_1` FOREIGN KEY (`CustomerID`) REFERENCES `customer` (`CustomerID`);
+
+--
 -- Constraints for table `delivery`
 --
 ALTER TABLE `delivery`
@@ -936,7 +1072,8 @@ ALTER TABLE `employee`
   ADD CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`DepartmentID`) REFERENCES `department` (`DepartmentID`),
   ADD CONSTRAINT `employee_ibfk_2` FOREIGN KEY (`TeamID`) REFERENCES `team` (`TeamID`),
   ADD CONSTRAINT `employee_ibfk_3` FOREIGN KEY (`SalaryGrade`) REFERENCES `salarygrade` (`SalaryGradeID`),
-  ADD CONSTRAINT `employee_ibfk_4` FOREIGN KEY (`Position`) REFERENCES `position` (`PositionID`);
+  ADD CONSTRAINT `employee_ibfk_4` FOREIGN KEY (`Position`) REFERENCES `position` (`PositionID`),
+  ADD CONSTRAINT `employee_ibfk_5` FOREIGN KEY (`ScheduleID`) REFERENCES `schedule` (`id`);
 
 --
 -- Constraints for table `employeeattendance`
@@ -989,6 +1126,13 @@ ALTER TABLE `purchaseorder`
 ALTER TABLE `purchaseorderitem`
   ADD CONSTRAINT `purchaseorderitem_ibfk_1` FOREIGN KEY (`TransactionNumber`) REFERENCES `purchaseorder` (`TransactionNumber`),
   ADD CONSTRAINT `purchaseorderitem_ibfk_2` FOREIGN KEY (`ProductID`) REFERENCES `product` (`ProductID`);
+
+--
+-- Constraints for table `queue`
+--
+ALTER TABLE `queue`
+  ADD CONSTRAINT `fk_team_id` FOREIGN KEY (`TeamID`) REFERENCES `team` (`TeamID`),
+  ADD CONSTRAINT `queue_ibfk_1` FOREIGN KEY (`EmployeeID`) REFERENCES `employee` (`EmployeeID`);
 
 --
 -- Constraints for table `rating`
@@ -1048,6 +1192,7 @@ ALTER TABLE `team`
 -- Constraints for table `ticket`
 --
 ALTER TABLE `ticket`
+  ADD CONSTRAINT `fk_assigned_team_id` FOREIGN KEY (`AssignedTeam`) REFERENCES `team` (`TeamID`),
   ADD CONSTRAINT `ticket_ibfk_1` FOREIGN KEY (`AssignedEmployee`) REFERENCES `employee` (`EmployeeID`),
   ADD CONSTRAINT `ticket_ibfk_2` FOREIGN KEY (`CategoryID`) REFERENCES `ticketcategory` (`CategoryID`),
   ADD CONSTRAINT `ticket_ibfk_3` FOREIGN KEY (`CreatedBy`) REFERENCES `customer` (`CustomerID`);
