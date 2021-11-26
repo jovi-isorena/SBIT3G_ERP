@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 08, 2021 at 07:51 AM
+-- Generation Time: Nov 26, 2021 at 03:13 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -49,8 +49,8 @@ CREATE TABLE `comment` (
   `TicketNo` varchar(10) NOT NULL,
   `CreatedDatetime` datetime NOT NULL DEFAULT current_timestamp(),
   `FromRep` tinyint(1) NOT NULL,
-  `ReplyingRepId` varchar(10) NOT NULL,
-  `Content` varchar(255) NOT NULL
+  `ReplyingRepId` varchar(10) DEFAULT NULL,
+  `Content` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -248,7 +248,7 @@ CREATE TABLE `ordereditem` (
 CREATE TABLE `paymentmethod` (
   `PaymentMethodID` int(11) NOT NULL,
   `CustomerID` varchar(10) NOT NULL,
-  `MethodType` varchar(10) NOT NULL,
+  `MethodType` varchar(20) NOT NULL,
   `AccountNumber` varchar(255) NOT NULL,
   `AccountName` varchar(255) NOT NULL,
   `PinCode` varchar(10) DEFAULT NULL,
@@ -472,6 +472,16 @@ CREATE TABLE `socialsecuritynumber` (
   `PagibigNumber` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `socialsecuritynumber`
+--
+
+INSERT INTO `socialsecuritynumber` (`EmployeeID`, `Philhealth`, `SSSNumber`, `TIN`, `PagibigNumber`) VALUES
+('0001', '12345678', '02-3232332', '321-327-544', '1239832'),
+('0002', '23456789', '02-3237643', '567-344-543', '1434332'),
+('0003', '34567891', '02-3239642', '112-268-322', '1239764'),
+('0004', '45678912', '02-9371931', '940-443-003', '3312832');
+
 -- --------------------------------------------------------
 
 --
@@ -585,7 +595,9 @@ CREATE TABLE `ticket` (
   `CSAT1` int(11) DEFAULT NULL,
   `CSAT2` int(11) DEFAULT NULL,
   `NPS` int(11) DEFAULT NULL,
-  `RatingDatetime` datetime DEFAULT NULL
+  `Feedback` varchar(1000) DEFAULT NULL,
+  `RatingDatetime` datetime DEFAULT NULL,
+  `Unread` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
