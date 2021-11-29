@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 26, 2021 at 03:13 AM
+-- Generation Time: Nov 29, 2021 at 05:32 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -33,7 +33,7 @@ USE `sbit3g_erp`;
 CREATE TABLE `cartitem` (
   `CartID` int(11) NOT NULL,
   `CustomerID` varchar(10) NOT NULL,
-  `ProductID` varchar(10) NOT NULL,
+  `ProductID` int(10) NOT NULL,
   `CartQuantity` int(11) NOT NULL DEFAULT 1,
   `CartPrice` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -106,6 +106,14 @@ CREATE TABLE `deduction` (
   `isActive` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `deduction`
+--
+
+INSERT INTO `deduction` (`id`, `deductionName`, `deductionCost`, `isActive`) VALUES
+(1, 'Pag-ibig', 200.00, 1),
+(2, 'Philhealth', 400.00, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -156,7 +164,7 @@ CREATE TABLE `employee` (
   `Birthdate` date NOT NULL,
   `HomeAddress` varchar(255) NOT NULL,
   `ContactNo` varchar(20) DEFAULT NULL,
-  `AttendancePIN` varchar(20) DEFAULT NULL,
+  `AttendancePIN` varchar(255) DEFAULT NULL,
   `DepartmentID` int(11) DEFAULT NULL,
   `TeamID` int(11) DEFAULT NULL,
   `SalaryGrade` int(11) DEFAULT NULL,
@@ -170,22 +178,22 @@ CREATE TABLE `employee` (
 --
 
 INSERT INTO `employee` (`EmployeeID`, `FirstName`, `MiddleName`, `LastName`, `Suffix`, `Birthdate`, `HomeAddress`, `ContactNo`, `AttendancePIN`, `DepartmentID`, `TeamID`, `SalaryGrade`, `Position`, `ScheduleID`, `isActive`) VALUES
-('0001', 'Melquezidek', 'Suazo', 'Vitor', '', '2000-01-01', 'Quezon City', NULL, '1111', 1, NULL, 1, 1, NULL, 1),
-('0002', 'Eugene', 'Laganzo', 'Tamidles', '', '2000-01-01', 'Quezon City', NULL, '1111', 2, NULL, 1, 1, NULL, 1),
-('0003', 'Alexander', 'Oh', 'Abaya', '', '2000-01-01', 'Quezon City', NULL, '1111', 3, NULL, 1, 1, NULL, 1),
-('0004', 'Jovito', 'Briones', 'Isorena', 'Jr', '2000-01-01', 'Quezon City', NULL, '1111', 4, NULL, 1, 1, NULL, 1),
-('0005', 'Nikko', 'Ocampo', 'Bayan', NULL, '2000-01-01', 'Quezon City', NULL, '1111', 2, NULL, 1, 2, NULL, 1),
-('0006', 'Jericko', 'Jamora', 'Librada', NULL, '2000-01-01', 'Quezon City', NULL, '1111', 2, NULL, 1, 3, NULL, 1),
-('0007', 'Andrea', 'Llamador', 'Alivio', NULL, '2000-01-01', 'Quezon City', NULL, '1111', 3, NULL, 1, 4, NULL, 1),
-('0008', 'Jeanne', 'Laquio', 'Flores', NULL, '2000-01-01', 'Quezon City', NULL, '1111', 3, NULL, 1, 5, NULL, 1),
-('0009', 'Joselito', 'Sancha', 'Sy', 'Jr', '2000-01-01', 'Quezon City', NULL, '1111', 3, NULL, 1, 6, NULL, 1),
-('0010', 'Arianne Ruth', 'Rodil', 'Parreño', NULL, '2000-01-01', 'Quezon City', NULL, '1111', 4, 1, 1, 7, NULL, 1),
-('0011', 'Arvin', 'Samson', 'Suyom', NULL, '2000-01-01', 'Quezon City', NULL, '1111', 4, 2, 1, 7, NULL, 1),
-('0012', 'Keila', 'Roson', 'Marcelino', NULL, '2000-01-01', 'Quezon City', NULL, '1111', 4, 1, 1, 8, NULL, 1),
-('0013', 'Harvey', NULL, 'Bulingit', NULL, '2000-01-01', 'Quezon City', NULL, '1111', 4, 2, 1, 8, NULL, 1),
-('0014', 'Marylle Clarice', 'De Jesus', 'Esteves', NULL, '2000-01-01', 'Quezon City', NULL, '1111', 4, NULL, 1, 9, NULL, 1),
-('0015', 'John Victor', 'Julian', 'Cajuguiran', NULL, '2000-01-01', 'Quezon City', NULL, '1111', 1, NULL, 1, 1, NULL, 1),
-('0016', 'Dominic Joaquin', 'Dasmariñas', 'Galiza', NULL, '2000-01-01', 'Quezon City', NULL, '1111', 1, NULL, 1, 1, NULL, 1),
+('0001', 'Melquezidek', 'Suazo', 'Vitor', '', '2000-01-01', 'Quezon City', NULL, '$2y$10$qKtllAivbs/xpaRFtf0jf.JqgT.Ims3VSdpHmDt7BUluDXUum4wje', 1, NULL, 1, 1, 107, 1),
+('0002', 'Eugene', 'Laganzo', 'Tamidles', '', '2000-01-01', 'Quezon City', NULL, '$2y$10$q/3Wa3780K.K/bZkhx8pXuNniBZPTLQH5zWPMtx6TmoJIqENfvncS', 2, NULL, 1, 1, 107, 1),
+('0003', 'Alexander', 'Oh', 'Abaya', '', '2000-01-01', 'Quezon City', NULL, '$2y$10$S.SSqeVWUrl5fVQBpTidt.wN1yst9CjE4qdmIxWeiktYENOtGJme.', 3, NULL, 1, 1, 107, 1),
+('0004', 'Jovito', 'Briones', 'Isorena', 'Jr', '2000-01-01', 'Quezon City', NULL, '$2y$10$gMJc/hfHkTTBjXox7VB1AOTwluoTMNZJts7sIskfNbJIylIJwp0JG', 4, NULL, 1, 1, 107, 1),
+('0005', 'Nikko', 'Ocampo', 'Bayan', NULL, '2000-01-01', 'Quezon City', NULL, '$2y$10$uE8saX6QwK9Jh.echwOdf./UyuSk22cuo8rOtqC0m/13jiDt68tQ6', 2, NULL, 1, 2, 107, 1),
+('0006', 'Jericko', 'Jamora', 'Librada', NULL, '2000-01-01', 'Quezon City', NULL, '$2y$10$bQVcUvZiVjmD/vUUQCOkUuJFAX8d/K/0ljT9nAq9.M8CwCRib5ieG', 2, NULL, 1, 3, 107, 1),
+('0007', 'Andrea', 'Llamador', 'Alivio', NULL, '2000-01-01', 'Quezon City', NULL, '$2y$10$PRhfwyfIAr2iyfOjoInJWOuTUYDj9d5.tY60MuarViOkSoLEZMVV6', 3, NULL, 1, 4, 107, 1),
+('0008', 'Jeanne', 'Laquio', 'Flores', NULL, '2000-01-01', 'Quezon City', NULL, '$2y$10$pUe9K2kCHk3a9J8HSGSkveON3hjV1nNHhtjPJCxNcxIDahivzX9a2', 3, NULL, 1, 5, 107, 1),
+('0009', 'Joselito', 'Sancha', 'Sy', 'Jr', '2000-01-01', 'Quezon City', NULL, '$2y$10$T52OHkuHg4WmFDr3BwgJ8ujkAMoKkXkycc3IiI/Jfbso3yf8oWbUG', 3, NULL, 1, 6, 107, 1),
+('0010', 'Arianne Ruth', 'Rodil', 'Parreño', NULL, '2000-01-01', 'Quezon City', NULL, '$2y$10$N.JsZ4gAyxDdW5UEc638recljl5O6XEiVSOdtbvUh0aNocD8zStza', 4, 1, 1, 7, 107, 1),
+('0011', 'Arvin', 'Samson', 'Suyom', NULL, '2000-01-01', 'Quezon City', NULL, '$2y$10$BRG63DoL0IIRGGMbG0okROKHv3wvz1MaOesdbC08ZWhr7gD6uOV8C', 4, 2, 1, 7, 107, 1),
+('0012', 'Keila', 'Roson', 'Marcelino', NULL, '2000-01-01', 'Quezon City', NULL, '$2y$10$He4.R7sf3x0G2r7h6fW/N..ocNgvJo96iNTstisUAPSvCvZVzIEA.', 4, 1, 1, 8, 107, 1),
+('0013', 'Harvey', NULL, 'Bulingit', NULL, '2000-01-01', 'Quezon City', NULL, '$2y$10$R8LVfXnLq04hvx1Q/XG/4.YrR5rmWiCr5EhdsX2RFBHgptsm4dy6a', 4, 2, 1, 8, 107, 1),
+('0014', 'Marylle Clarice', 'De Jesus', 'Esteves', NULL, '2000-01-01', 'Quezon City', NULL, '$2y$10$U3XvsC6YoEzWA9dJLS9CwOwYnEOQVYM8F/MH0eBbp9jom2GGF.dYC', 4, NULL, 1, 9, 107, 1),
+('0015', 'John Victor', 'Julian', 'Cajuguiran', NULL, '2000-01-01', 'Quezon City', NULL, '$2y$10$TDD4.wtiz8tPxPmFcf6OPOTMghvY5yMe1a1oFrtloHZwL8bDKvJia', 1, NULL, 1, 1, 107, 1),
+('0016', 'Dominic Joaquin', 'Dasmariñas', 'Galiza', NULL, '2000-01-01', 'Quezon City', NULL, '$2y$10$seRotJypxiwQAz0n7M49LOPrEkBl17SnBhyWD14vrciVgQ6L7R8Oi', 1, NULL, 1, 1, 107, 1),
 ('0017', 'Cai', NULL, 'Gigante', NULL, '2000-01-01', 'Quezon City', NULL, '1111', 4, 1, 1, 7, NULL, 1),
 ('0018', 'Jerico', NULL, 'Angala', NULL, '2000-01-01', 'Quezon City', NULL, '1111', 4, 1, 1, 7, NULL, 1),
 ('0019', 'Kerstein May', NULL, 'Paano', NULL, '2000-01-01', 'Quezon City', NULL, '1111', 4, 2, 1, 7, NULL, 1),
@@ -208,6 +216,28 @@ CREATE TABLE `employeeattendance` (
   `Overtime` int(11) DEFAULT NULL,
   `Status` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `employeeattendance`
+--
+
+INSERT INTO `employeeattendance` (`AttendanceID`, `Date`, `TimeIn`, `TimeOut`, `Num_hrs`, `EmployeeID`, `Undertime`, `Overtime`, `Status`) VALUES
+(108, '2021-11-20', '08:41:54', '17:00:00', '8.00', '0001', 0, 0, 1),
+(109, '2021-11-20', '08:42:05', '17:00:00', '8.00', '0002', 0, 0, 1),
+(110, '2021-11-20', '08:42:13', '17:00:00', '8.00', '0003', 0, 0, 1),
+(111, '2021-11-20', '08:42:22', '17:00:00', '8.00', '0004', 0, 0, 1),
+(112, '2021-11-20', '08:42:29', '17:00:00', '8.00', '0005', 0, 0, 1),
+(113, '2021-11-20', '08:42:40', '17:00:00', '8.00', '0006', 0, 0, 1),
+(114, '2021-11-20', '08:42:50', '17:00:00', '8.00', '0007', 0, 0, 1),
+(115, '2021-11-20', '08:43:06', '17:00:00', '8.00', '0008', 0, 0, 1),
+(116, '2021-11-20', '08:43:15', '17:00:00', '8.00', '0009', 0, 0, 1),
+(117, '2021-11-20', '08:43:27', '17:00:00', '8.00', '0010', 0, 0, 1),
+(118, '2021-11-20', '08:43:37', '17:00:00', '8.00', '0011', 0, 0, 1),
+(119, '2021-11-20', '08:43:46', '17:00:00', '8.00', '0012', 0, 0, 1),
+(120, '2021-11-20', '08:43:55', '17:00:00', '8.00', '0013', 0, 0, 1),
+(121, '2021-11-20', '08:44:15', '17:00:00', '8.00', '0014', 0, 0, 1),
+(122, '2021-11-20', '08:44:23', '17:00:00', '8.00', '0015', 0, 0, 1),
+(123, '2021-11-20', '08:44:45', '17:00:00', '8.00', '0016', 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -235,7 +265,7 @@ CREATE TABLE `order` (
 CREATE TABLE `ordereditem` (
   `OrderedItemID` int(11) NOT NULL,
   `OrderID` varchar(10) NOT NULL,
-  `ProductID` varchar(10) NOT NULL,
+  `ProductID` int(10) NOT NULL,
   `Quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -306,7 +336,7 @@ INSERT INTO `position` (`PositionID`, `PositionName`, `InitialSalary`, `isActive
 --
 
 CREATE TABLE `product` (
-  `ProductID` varchar(10) NOT NULL,
+  `ProductID` int(10) NOT NULL,
   `Name` varchar(255) NOT NULL,
   `Brand` varchar(255) NOT NULL,
   `Category` varchar(255) NOT NULL,
@@ -341,7 +371,7 @@ CREATE TABLE `purchaseorder` (
 CREATE TABLE `purchaseorderitem` (
   `PurchaseItemID` int(11) NOT NULL,
   `TransactionNumber` int(11) NOT NULL,
-  `ProductID` varchar(10) NOT NULL,
+  `ProductID` int(10) NOT NULL,
   `Quantity` int(11) NOT NULL,
   `BuyingPrice` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -370,7 +400,7 @@ CREATE TABLE `queue` (
 CREATE TABLE `rating` (
   `RatingID` int(11) NOT NULL,
   `CustomerID` varchar(10) NOT NULL,
-  `ProductID` varchar(10) NOT NULL,
+  `ProductID` int(10) NOT NULL,
   `RateStar` int(11) NOT NULL,
   `RateReview` varchar(255) DEFAULT NULL,
   `RateDate` datetime NOT NULL DEFAULT current_timestamp(),
@@ -385,7 +415,7 @@ CREATE TABLE `rating` (
 
 CREATE TABLE `releaseorder` (
   `ReleaseOrderID` int(11) NOT NULL,
-  `ProductID` varchar(10) NOT NULL,
+  `ProductID` int(10) NOT NULL,
   `CreatedBy` varchar(10) NOT NULL,
   `Quantity` int(11) NOT NULL,
   `CreatedDate` datetime NOT NULL DEFAULT current_timestamp(),
@@ -417,7 +447,7 @@ CREATE TABLE `returneditem` (
   `ReturnID` int(11) NOT NULL,
   `CustomerID` varchar(10) NOT NULL,
   `OrderID` varchar(10) NOT NULL,
-  `ProductID` varchar(10) NOT NULL,
+  `ProductID` int(10) NOT NULL,
   `ReturnQuantity` int(11) NOT NULL,
   `ReturnDescription` varchar(255) NOT NULL,
   `ReturnEvidence` longblob DEFAULT NULL,
@@ -443,7 +473,16 @@ CREATE TABLE `salarygrade` (
 --
 
 INSERT INTO `salarygrade` (`SalaryGradeID`, `Grade`, `Step`, `Rate`, `isActive`) VALUES
-(1, '1', '1', '30000.00', 1);
+(1, '1', '1', '300.00', 1),
+(2, '1', '2', '305.00', 1),
+(3, '1', '3', '310.00', 1),
+(4, '1', '4', '315.00', 1),
+(5, '1', '5', '320.00', 1),
+(6, '1', '6', '325.00', 1),
+(7, '1', '7', '330.00', 1),
+(8, '1', '8', '335.00', 1),
+(9, '1', '9', '340.00', 1),
+(10, '1', '10', '345.00', 1);
 
 -- --------------------------------------------------------
 
@@ -457,6 +496,14 @@ CREATE TABLE `schedule` (
   `TimeOut` time DEFAULT NULL,
   `isActive` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `schedule`
+--
+
+INSERT INTO `schedule` (`id`, `TimeIn`, `TimeOut`, `isActive`) VALUES
+(107, '09:00:00', '17:00:00', 1),
+(108, '21:00:00', '06:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -489,7 +536,7 @@ INSERT INTO `socialsecuritynumber` (`EmployeeID`, `Philhealth`, `SSSNumber`, `TI
 --
 
 CREATE TABLE `storestock` (
-  `ProductID` varchar(10) NOT NULL,
+  `ProductID` int(10) NOT NULL,
   `AvailableStock` int(11) NOT NULL DEFAULT 0,
   `MinimumStockLimit` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -521,34 +568,36 @@ CREATE TABLE `systemaccount` (
   `LastLoginAttempt` datetime DEFAULT NULL,
   `LoginAttemptCount` int(11) DEFAULT NULL,
   `LockedUntil` datetime DEFAULT NULL,
-  `isActive` tinyint(1) NOT NULL DEFAULT 1
+  `isActive` tinyint(1) NOT NULL DEFAULT 1,
+  `FirstName` varchar(50) DEFAULT NULL,
+  `LastName` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `systemaccount`
 --
 
-INSERT INTO `systemaccount` (`EmployeeID`, `Username`, `Password`, `LastLoginAttempt`, `LoginAttemptCount`, `LockedUntil`, `isActive`) VALUES
-('0001', 'vitor1', '$2y$10$LVllbI3qmI5hb54f6qYNNeTSlKevPlbPZ8LWJ3TX2K/6ViQ3ROCYm', NULL, NULL, NULL, 1),
-('0002', 'tamidles1', '$2y$10$4M6cMHuLCu0Uagn6HQnlieteDw44RuzvKANpYseacssbKy8jBaoQO', NULL, NULL, NULL, 1),
-('0003', 'abaya1', '$2y$10$5LxbYLv8hq93KIr3svybLOdvSKF1jBfYSAbfGxrRiivICXcf8ZI2y', NULL, NULL, NULL, 1),
-('0004', 'isorena1', '$2y$10$Gn2U3BrCVH82fpCphqzZeu.YjxELiACm10kS1fWD2xxipLGvuud0G', NULL, NULL, NULL, 1),
-('0005', 'bayan1', '$2y$10$DbLfvgJFBGEzO1Mzvt/z7.7ELBnTcxPBNGqc0TBHOSPRqXKgp5pAK', NULL, NULL, NULL, 1),
-('0006', 'librada1', '$2y$10$iA2Iph3oE3D1UXU.tYzRcuVTEHmC1SqXRKn9cjTa1wIhpDzPHks8W', NULL, NULL, NULL, 1),
-('0007', 'alivio1', '$2y$10$tOOPZeRBEiOKZ45vt38EL.yKHHwEdfQmdLcLLm4.sBclQF2rq3I/K', NULL, NULL, NULL, 1),
-('0008', 'flores1', '$2y$10$xdzk585yw5jv3t27u0.IUuz06DWFpv1uFPrAcW9vtflWTg1DMpzi.', NULL, NULL, NULL, 1),
-('0009', 'sy1', '$2y$10$mVwUXZ8EUJdftZruhxxM5u.TWipoG8bOrCXTbBWStJZo7Y2PCKPO.', NULL, NULL, NULL, 1),
-('0010', 'parreno1', '$2y$10$au4rX6Pjn15C.oTt/kHRiucwofqhpMi/d.oWMFYShhtshOGOjxE1S', NULL, NULL, NULL, 1),
-('0011', 'suyom1', '$2y$10$VwXAozs6/M0PgLAnOKOZO.dCgLIkQq/fO77Gwma0vZmIccSLoLKbG', NULL, NULL, NULL, 1),
-('0012', 'marcelino1', '$2y$10$Zy7bqefElhn6mWjNyi32bedyLG8jbEv1BONT03CGGUmm.vqy1f.F.', NULL, NULL, NULL, 1),
-('0013', 'bulingit1', '$2y$10$JCsThCrajRtoHCHDg90heevjLoYqu15tVHGJHnWSenvsc2mVXMkSe', NULL, NULL, NULL, 1),
-('0014', 'esteves1', '$2y$10$64bGI7PfQQK5BylF9j0r6.RAdNjf7/TKg/uGGwUlhWW1b.kwbSc26', NULL, NULL, NULL, 1),
-('0015', 'cajuguiran1', '$2y$10$7QAGhER28UUA9XDSBebf8ernCx0Q3igU4uqQmkC789gdZvwaZDLqC', NULL, NULL, NULL, 1),
-('0016', 'galiza1', '$2y$10$lFKzHRZihnj0ZMMeLrQ4DOamseZDHiWR/7pfIvP2EgtyJVgWFHxjS', NULL, NULL, NULL, 1),
-('0017', 'gigante1', '$2y$10$gFElh3V0m8ntwBddIUsQl.UzGQow1hS49K5TqyHKcgRrcEau1.3C.', NULL, NULL, NULL, 1),
-('0018', 'angala1', '$2y$10$WTr2MlWDQqwIAUwZLdXFPecd1Krtd0JB76EYymtJhxbnU295CWsOy', NULL, NULL, NULL, 1),
-('0019', 'paano1', '$2y$10$zcoRsPBdTNMdKeegpYdIYOppRtoZeRtvdoTSAtz96rkV1SndQsmX.', NULL, NULL, NULL, 1),
-('0020', 'lamberte1', '$2y$10$RLN402DtGVTSEa/hbweHM.O/kL92Op2rWwzRA2tEsHe8BMp.ejGjy', NULL, NULL, NULL, 1);
+INSERT INTO `systemaccount` (`EmployeeID`, `Username`, `Password`, `LastLoginAttempt`, `LoginAttemptCount`, `LockedUntil`, `isActive`, `FirstName`, `LastName`) VALUES
+('0001', 'vitor1', '$2y$10$LVllbI3qmI5hb54f6qYNNeTSlKevPlbPZ8LWJ3TX2K/6ViQ3ROCYm', NULL, NULL, NULL, 1, 'Melquezidek', 'Vitor'),
+('0002', 'tamidles1', '$2y$10$4M6cMHuLCu0Uagn6HQnlieteDw44RuzvKANpYseacssbKy8jBaoQO', NULL, NULL, NULL, 1, 'Eugene', 'Tamidles'),
+('0003', 'abaya1', '$2y$10$5LxbYLv8hq93KIr3svybLOdvSKF1jBfYSAbfGxrRiivICXcf8ZI2y', NULL, NULL, NULL, 1, 'Alexander', 'Abaya'),
+('0004', 'isorena1', '$2y$10$Gn2U3BrCVH82fpCphqzZeu.YjxELiACm10kS1fWD2xxipLGvuud0G', NULL, NULL, NULL, 1, 'Jovito', 'Isorena'),
+('0005', 'bayan1', '$2y$10$DbLfvgJFBGEzO1Mzvt/z7.7ELBnTcxPBNGqc0TBHOSPRqXKgp5pAK', NULL, NULL, NULL, 1, 'Nikko', 'Bayan'),
+('0006', 'librada1', '$2y$10$iA2Iph3oE3D1UXU.tYzRcuVTEHmC1SqXRKn9cjTa1wIhpDzPHks8W', NULL, NULL, NULL, 1, 'Jericko', 'Librada'),
+('0007', 'alivio1', '$2y$10$tOOPZeRBEiOKZ45vt38EL.yKHHwEdfQmdLcLLm4.sBclQF2rq3I/K', NULL, NULL, NULL, 1, 'Andrea', 'Alivio'),
+('0008', 'flores1', '$2y$10$xdzk585yw5jv3t27u0.IUuz06DWFpv1uFPrAcW9vtflWTg1DMpzi.', NULL, NULL, NULL, 1, 'Jeanne', 'Flores'),
+('0009', 'sy1', '$2y$10$mVwUXZ8EUJdftZruhxxM5u.TWipoG8bOrCXTbBWStJZo7Y2PCKPO.', NULL, NULL, NULL, 1, 'Joselito', 'Sy'),
+('0010', 'parreno1', '$2y$10$au4rX6Pjn15C.oTt/kHRiucwofqhpMi/d.oWMFYShhtshOGOjxE1S', NULL, NULL, NULL, 1, 'Arianne Ruth', 'Parreño'),
+('0011', 'suyom1', '$2y$10$VwXAozs6/M0PgLAnOKOZO.dCgLIkQq/fO77Gwma0vZmIccSLoLKbG', NULL, NULL, NULL, 1, 'Arvin', 'Suyom'),
+('0012', 'marcelino1', '$2y$10$Zy7bqefElhn6mWjNyi32bedyLG8jbEv1BONT03CGGUmm.vqy1f.F.', NULL, NULL, NULL, 1, 'Keila', 'Marcelino'),
+('0013', 'bulingit1', '$2y$10$JCsThCrajRtoHCHDg90heevjLoYqu15tVHGJHnWSenvsc2mVXMkSe', NULL, NULL, NULL, 1, 'Harvey', 'Bulingit'),
+('0014', 'esteves1', '$2y$10$64bGI7PfQQK5BylF9j0r6.RAdNjf7/TKg/uGGwUlhWW1b.kwbSc26', NULL, NULL, NULL, 1, 'Marylle Clarice', 'Esteves'),
+('0015', 'cajuguiran1', '$2y$10$7QAGhER28UUA9XDSBebf8ernCx0Q3igU4uqQmkC789gdZvwaZDLqC', NULL, NULL, NULL, 1, 'John Victor', 'Cajuguiran'),
+('0016', 'galiza1', '$2y$10$lFKzHRZihnj0ZMMeLrQ4DOamseZDHiWR/7pfIvP2EgtyJVgWFHxjS', NULL, NULL, NULL, 1, 'Dominic Joaquin', 'Galiza'),
+('0017', 'gigante1', '$2y$10$gFElh3V0m8ntwBddIUsQl.UzGQow1hS49K5TqyHKcgRrcEau1.3C.', NULL, NULL, NULL, 1, 'Cai', 'Gigante'),
+('0018', 'angala1', '$2y$10$WTr2MlWDQqwIAUwZLdXFPecd1Krtd0JB76EYymtJhxbnU295CWsOy', NULL, NULL, NULL, 1, 'Jerico', 'Angala'),
+('0019', 'paano1', '$2y$10$zcoRsPBdTNMdKeegpYdIYOppRtoZeRtvdoTSAtz96rkV1SndQsmX.', NULL, NULL, NULL, 1, 'Kerstein May', 'Paano'),
+('0020', 'lamberte1', '$2y$10$RLN402DtGVTSEa/hbweHM.O/kL92Op2rWwzRA2tEsHe8BMp.ejGjy', NULL, NULL, NULL, 1, 'Rhol', 'Lamberte');
 
 -- --------------------------------------------------------
 
@@ -570,7 +619,8 @@ CREATE TABLE `team` (
 
 INSERT INTO `team` (`TeamID`, `DepartmentID`, `TeamLeader`, `TeamName`, `isActive`) VALUES
 (1, 4, NULL, 'Sales Support', 1),
-(2, 4, NULL, 'Tech Support', 1);
+(2, 4, NULL, 'Tech Support', 1),
+(22, 1, '0001', 'Recruitment', 1);
 
 -- --------------------------------------------------------
 
@@ -598,6 +648,18 @@ CREATE TABLE `ticket` (
   `Feedback` varchar(1000) DEFAULT NULL,
   `RatingDatetime` datetime DEFAULT NULL,
   `Unread` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ticketattachment`
+--
+
+CREATE TABLE `ticketattachment` (
+  `ID` int(11) NOT NULL,
+  `TicketNo` varchar(10) NOT NULL,
+  `Attachment` longblob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -650,7 +712,7 @@ INSERT INTO `ticketingsla` (`SlaId`, `TicketConcurrency`, `L1MaxWaitingTime`, `L
 --
 
 CREATE TABLE `warehousestock` (
-  `ProductID` varchar(10) NOT NULL,
+  `ProductID` int(10) NOT NULL,
   `AvailableStock` int(11) NOT NULL DEFAULT 0,
   `MinimumStockLimit` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -665,7 +727,7 @@ CREATE TABLE `warehousestock` (
 ALTER TABLE `cartitem`
   ADD PRIMARY KEY (`CartID`),
   ADD KEY `CustomerID` (`CustomerID`),
-  ADD KEY `ProductID` (`ProductID`);
+  ADD KEY `ProductID` (`ProductID`) USING BTREE;
 
 --
 -- Indexes for table `comment`
@@ -738,7 +800,7 @@ ALTER TABLE `order`
 ALTER TABLE `ordereditem`
   ADD PRIMARY KEY (`OrderedItemID`),
   ADD KEY `OrderID` (`OrderID`),
-  ADD KEY `ProductID` (`ProductID`);
+  ADD KEY `ordereditem_ibfk_2` (`ProductID`);
 
 --
 -- Indexes for table `paymentmethod`
@@ -782,7 +844,7 @@ ALTER TABLE `purchaseorder`
 ALTER TABLE `purchaseorderitem`
   ADD PRIMARY KEY (`PurchaseItemID`),
   ADD KEY `TransactionNumber` (`TransactionNumber`),
-  ADD KEY `ProductID` (`ProductID`);
+  ADD KEY `purchaseorderitem_ibfk_2` (`ProductID`);
 
 --
 -- Indexes for table `queue`
@@ -798,15 +860,15 @@ ALTER TABLE `queue`
 ALTER TABLE `rating`
   ADD PRIMARY KEY (`RatingID`),
   ADD KEY `CustomerID` (`CustomerID`),
-  ADD KEY `ProductID` (`ProductID`);
+  ADD KEY `rating_ibfk_2` (`ProductID`);
 
 --
 -- Indexes for table `releaseorder`
 --
 ALTER TABLE `releaseorder`
   ADD PRIMARY KEY (`ReleaseOrderID`),
-  ADD KEY `ProductID` (`ProductID`),
-  ADD KEY `CreatedBy` (`CreatedBy`);
+  ADD KEY `CreatedBy` (`CreatedBy`),
+  ADD KEY `releaseorder_ibfk_1` (`ProductID`);
 
 --
 -- Indexes for table `representativehandledticket`
@@ -822,8 +884,8 @@ ALTER TABLE `representativehandledticket`
 ALTER TABLE `returneditem`
   ADD PRIMARY KEY (`ReturnID`),
   ADD KEY `OrderID` (`OrderID`),
-  ADD KEY `ProductID` (`ProductID`),
-  ADD KEY `CustomerID` (`CustomerID`);
+  ADD KEY `CustomerID` (`CustomerID`),
+  ADD KEY `returneditem_ibfk_2` (`ProductID`);
 
 --
 -- Indexes for table `salarygrade`
@@ -880,6 +942,13 @@ ALTER TABLE `ticket`
   ADD KEY `fk_assigned_team_id` (`AssignedTeam`);
 
 --
+-- Indexes for table `ticketattachment`
+--
+ALTER TABLE `ticketattachment`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `TicketNo` (`TicketNo`);
+
+--
 -- Indexes for table `ticketcategory`
 --
 ALTER TABLE `ticketcategory`
@@ -924,7 +993,7 @@ ALTER TABLE `customeraddress`
 -- AUTO_INCREMENT for table `deduction`
 --
 ALTER TABLE `deduction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `delivery`
@@ -942,7 +1011,7 @@ ALTER TABLE `department`
 -- AUTO_INCREMENT for table `employeeattendance`
 --
 ALTER TABLE `employeeattendance`
-  MODIFY `AttendanceID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `AttendanceID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
 
 --
 -- AUTO_INCREMENT for table `ordereditem`
@@ -967,6 +1036,12 @@ ALTER TABLE `payroll`
 --
 ALTER TABLE `position`
   MODIFY `PositionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `product`
+--
+ALTER TABLE `product`
+  MODIFY `ProductID` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `purchaseorder`
@@ -1014,13 +1089,13 @@ ALTER TABLE `returneditem`
 -- AUTO_INCREMENT for table `salarygrade`
 --
 ALTER TABLE `salarygrade`
-  MODIFY `SalaryGradeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `SalaryGradeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `schedule`
 --
 ALTER TABLE `schedule`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
 
 --
 -- AUTO_INCREMENT for table `supplier`
@@ -1032,7 +1107,13 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT for table `team`
 --
 ALTER TABLE `team`
-  MODIFY `TeamID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `TeamID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT for table `ticketattachment`
+--
+ALTER TABLE `ticketattachment`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ticketcategory`
@@ -1208,6 +1289,12 @@ ALTER TABLE `ticket`
   ADD CONSTRAINT `ticket_ibfk_1` FOREIGN KEY (`AssignedEmployee`) REFERENCES `employee` (`EmployeeID`),
   ADD CONSTRAINT `ticket_ibfk_2` FOREIGN KEY (`CategoryID`) REFERENCES `ticketcategory` (`CategoryID`),
   ADD CONSTRAINT `ticket_ibfk_3` FOREIGN KEY (`CreatedBy`) REFERENCES `customer` (`CustomerID`);
+
+--
+-- Constraints for table `ticketattachment`
+--
+ALTER TABLE `ticketattachment`
+  ADD CONSTRAINT `ticketattachment_ibfk_1` FOREIGN KEY (`TicketNo`) REFERENCES `ticket` (`TicketNo`);
 
 --
 -- Constraints for table `ticketcategory`
